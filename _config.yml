@@ -1,1 +1,3 @@
 theme: jekyll-theme-leap-day
+domain: anondevua.github.io       # if you want to force HTTPS, specify the domain without the http at the start, e.g. example.com
+url: https://anondevua.github.io  # the base hostname and protocol for your site, e.g. http://example.com
