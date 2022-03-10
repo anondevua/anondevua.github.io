@@ -142,8 +142,8 @@
 
         var statsEl = document.getElementById('stats');
         function printStats() {
-            var table_body =  Object.entries(targetStats).map(
-                ([target, { number_of_requests, number_of_errored_responses }]) => '<tr style="background-color:' + number_of_requests == number_of_errored_responses ? '#FF0000' : '#00FF00' + '"><td>' + target + '</td><td>' + number_of_requests + '</td><td>' + number_of_errored_responses + '</td></tr>'
+            var table_body = Object.entries(targetStats).map(
+                ([target, { number_of_requests, number_of_errored_responses }]) => '<tr style="background-color:' + (number_of_requests == number_of_errored_responses ? '#FF0000' : '#00FF00') + '"><td>' + target + '</td><td>' + number_of_requests + '</td><td>' + number_of_errored_responses + '</td></tr>'
             ).join('')
             statsEl.innerHTML = '<table width="100%"><thead><tr><th>URL</th><th>Number of Requests</th><th>Number of Errors</th></tr></thead><tbody>' + table_body + '</tbody></table>'
         }
