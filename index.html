@@ -127,6 +127,12 @@
             'https://www.rbc.ru/',
             'http://kp.ru/',
             'https://savelife.pw/',
+            'https://www.russianhighways.ru',
+            'https://www.nornickel.com',
+            'https://www.surgutneftegas.ru',
+            'https://www.evraz.com',
+            'https://www.nlmk.com',
+            'https://www.metalloinvest.com',
         ]
 
         var targetStats = {}
@@ -136,7 +142,7 @@
 
         var statsEl = document.getElementById('stats');
         function printStats() {
-            statsEl.innerHTML = '<table width="100%"><thead><tr><th>URL</th><th>Number of Requests</th><th>Number of Errors</th></tr></thead><tbody>' + Object.entries(targetStats).map(([target, { number_of_requests, number_of_errored_responses }]) => '<tr><td>' + target + '</td><td>' + number_of_requests + '</td><td>' + number_of_errored_responses + '</td></tr>').join('') + '</tbody></table>'
+            statsEl.innerHTML = '<table width="100%"><thead><tr><th>URL</th><th>Number of Requests</th><th>Number of Errors</th></tr></thead><tbody>' + Object.entries(targetStats).map(([target, { number_of_requests, number_of_errored_responses }]) => '<tr style="background-color:' + number_of_requests == number_of_errored_responses ? '#FF0000' : '#00FF00' + '><td>' + target + '</td><td>' + number_of_requests + '</td><td>' + number_of_errored_responses + '</td></tr>').join('') + '</tbody></table>'
         }
         setInterval(printStats, 1000);
 
