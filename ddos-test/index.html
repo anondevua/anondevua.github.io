@@ -118,14 +118,8 @@
                                     targetStats[target].number_of_errored_responses++;
                                     targetStats[target].last_responses += ".";
                                 }
-                                else {
-                                    targetStats[target].last_responses += "+";
-                                }
                             }
-                            else { 
-                                targetStats[target].last_responses += "-";
-                            }
-
+                            targetStats[target].last_responses += "+";
                             targetStats[target].number_of_requests++;
                         })
                 )
