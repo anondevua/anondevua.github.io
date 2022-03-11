@@ -1,0 +1,12 @@
+
+# strange ip and addresses, that could be added to targets - but look strange however
+
+188.128.102.66 : 80 443 1935
+https://lk.rostec.ru/Account/LogIn?ReturnUrl=%2F 81.1.223.37 : 53 80 443
+89.111.133.98 : 22 80 443
+188.128.102.68 : 80 443 993 4443 4446
+185.22.61.90 : 22 80 443
+
+88.198.25.38 : 20 22 23 32 80 443 7000
+
+188.128.56.24 : 80 443
