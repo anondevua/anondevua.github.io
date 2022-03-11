@@ -53,19 +53,15 @@
         const fetchTimeout = 1000;
         const CONCURRENCY_LIMIT = 1000;
 
-        const fetchHeaders = {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'POST, PUT, DELETE, GET, OPTIONS',
-            'Access-Control-Request-Method': '*',
-            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-        }
-
         var targetStats = {}
 
         var statsEl = document.getElementById('stats');
         function printStats() {
             for (var [target, stats] of Object.entries(targetStats)) {
                 stats.last_responses = stats.last_responses.slice(-40)
+                if (!stats.last_responses.includes("!")) {
+                    stats.last_error = ""
+                }
             }
             var table_body = Object.entries(targetStats).map(
                 ([target, { number_of_requests, number_of_errored_responses, last_responses, last_error }]) => 
@@ -90,7 +86,6 @@
             return fetch(resource, {
                 method: 'GET',
                 mode: 'no-cors',
-                // headers: fetchHeaders,
                 signal: controller.signal
             }).then((response) => {
                 clearTimeout(id);
@@ -121,7 +116,7 @@
                             if (response) {
                                 if (!response.ok) {
                                     targetStats[target].number_of_errored_responses++;
-                                    targetStats[target].last_responses += "~";
+                                    targetStats[target].last_responses += ".";
                                 }
                                 else {
                                     targetStats[target].last_responses += "+";
