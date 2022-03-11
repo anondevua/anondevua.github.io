@@ -13,7 +13,11 @@ https://apparat.lenobl.ru
 https://cheladmin.ru
 https://cloud.rkn.gov.ru
 https://customs.gov.ru
+https://e-trust.gosuslugi.ru
 https://er.ru
+https://esia.gosuslugi.ru
+https://gu.spb.ru
+https://iecp.ru/ep/ep-verification
 https://krd.ru
 https://lenta.ru
 https://lukoil.ru
@@ -46,6 +50,7 @@ https://sputnik.by
 https://stroi.gov.ru
 https://tass.ru
 https://tvzvezda.ru
+https://uc-osnovanie.ru
 https://ulgov.ru
 https://vcs.rostec.ru
 https://vgtrk.ru
