@@ -1,4 +1,4 @@
 theme: jekyll-theme-leap-day
 domain: anondevua.github.io
 url: https://anondevua.github.io
-markdown: kramdown
+markdown: GFM
