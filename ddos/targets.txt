@@ -1,12 +1,3 @@
-http://en.kremlin.ru
-http://government.ru
-http://ias.rostec.ru
-http://kp.ru
-http://kremlin.ru
-http://midural.ru
-http://v1.rostec.ru
-http://v2.rostec.ru
-http://www.tula.ru
 https://alfabank.ru/everyday/online
 https://api.sberbank.ru/prod/tokens/v2/oauth
 https://api.sberbank.ru/prod/tokens/v2/oidc
