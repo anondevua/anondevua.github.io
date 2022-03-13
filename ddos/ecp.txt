@@ -1,11 +1,10 @@
-
-https://esia.gosuslugi.ru
-https://iecp.ru/ep/ep-verification
 https://e-trust.gosuslugi.ru
+https://esia.gosuslugi.ru
 https://gu.spb.ru
-https://uc-osnovanie.ru
+https://iecp.ru/ep/ep-verification
 https://iecp.ru/ep/uc-list
 https://nucrf.ru
-https://www.roseltorg.ru
 https://nwudc.ru
+https://uc-osnovanie.ru
 https://www.center-inform.ru
+https://www.roseltorg.ru

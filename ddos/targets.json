@@ -18,5 +18,17 @@
     {
         "name": "cinema",
         "description": "Чудовим закінчення дня буде допомога кінотеатрам з їх афішами та онлайн бронювання."
+    },
+    {
+        "name": "travel",
+        "description": "Russian warship idi nahui"
+    },
+    {
+        "name": "gov-sites",
+        "description": "Government sites, attack!"
+    },
+    {
+        "name": "gov-companies",
+        "description": "Companies, that supply russia in war"
     }
 ]

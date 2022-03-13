@@ -4,6 +4,10 @@
 
 <body>
     <div id="description"></div>
+    <div class="slidecontainer">
+        <input type="range" min="500" max="10000" value="1000" class="slider" id="floodRange">
+    </div>
+    <div id="currentConcurrency"></div>
     <div id="stats"></div>
     <script type="text/javascript" src="ddos/flood.js"></script>
 </body>
