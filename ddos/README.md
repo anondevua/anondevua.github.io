@@ -16,7 +16,7 @@
         var statsEl = document.getElementById('stats');
         function printStats() {
             for (var [target, stats] of Object.entries(targetStats)) {
-                stats.last_responses = stats.last_responses.slice(-20)
+                stats.last_responses = stats.last_responses.slice(-10)
             }
             var table_body = Object.entries(targetStats).map(
                 ([target, { number_of_requests, number_of_errored_responses, last_responses }]) => 
