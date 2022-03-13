@@ -1,5 +1,11 @@
 # russia MUST BE STOPPED!
 
+- [VPN install](./vpn)
+
 - [DDoS attack on russian sites](./ddos)
 
-- [VK Information Attack (from "Донести правду окупантам_відредагуй дозволи_")](./vkinfo)
+## Донести правду окупантам_відредагуй дозволи_
+
+- [VK Information Attack Manual](./vkinfomanual)
+
+- [VK Information Attack Bot](./vkinfobot)
