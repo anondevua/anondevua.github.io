@@ -80,7 +80,7 @@ async function flood(target) {
 fetch(targetsURL + "targets.json").then((r) => {
     r.json().then((d) => {
         rand = Math.random() % d.length
-        const element = d[rand]
+        const element = d[rand];
         descEl.innerHTML = element["description"];
         fetch(targetsURL + element['name'] + ".txt").then((r) => {
             r.text().then((d) => {
