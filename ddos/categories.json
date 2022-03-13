@@ -1,0 +1,22 @@
+[
+    {
+        "name": "ecp",
+        "description": "Most of electronic signature services are down. Double up. Find below some addresses to tackle. "
+    },
+    {
+        "name": "online-banking",
+        "description": "There are long queue to ATMs in Russia recently. Let’s make it even longer with shutting down online banking"
+    },
+    {
+        "name": "food-delivery",
+        "description": "Say hello to household food delivery services. They so need it on weekends:"
+    },
+    {
+        "name": "news",
+        "description": "The next weekday topic is about news. Crush news websites."
+    },
+    {
+        "name": "cinema",
+        "description": "Чудовим закінчення дня буде допомога кінотеатрам з їх афішами та онлайн бронювання."
+    }
+]
