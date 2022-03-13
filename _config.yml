@@ -8,4 +8,4 @@ plugins:
 
 header_pages:
   - about.md
-  - README.md
+  - vpn/README.md
