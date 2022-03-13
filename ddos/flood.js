@@ -77,12 +77,11 @@ async function flood(target) {
     }
 }
 
-fetch(targetsURL + "targets.json").then((r) => {
-    r.json().then((d) => {
-        rand = Math.random() % d.length
-        let element = d[rand];
-        descEl.innerHTML = element["description"];
-        fetch(targetsURL + element['name'] + ".txt").then((r) => {
+fetch(targetsURL + "targets.json").then((t) => {
+    t.json().then((j) => {
+        rand = Math.random() % j.length
+        descEl.innerHTML = j[rand]["description"];
+        fetch(targetsURL + j[rand]['name'] + ".txt").then((r) => {
             r.text().then((d) => {
                 let targets = d.split('\n');
                 targets.forEach((target) => {
