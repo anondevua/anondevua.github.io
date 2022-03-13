@@ -1,5 +1,7 @@
 # russia MUST BE STOPPED!
 
+- [Common official instructions](https://telegra.ph/StopRussiaChannel-ukr-03-04)
+
 - [VPN install](./vpn)
 
 - [DDoS attack on russian sites](./ddos)
