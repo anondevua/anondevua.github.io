@@ -4,7 +4,7 @@
 
 - [DDoS attack on russian sites](./ddos)
 
-## Донести правду окупантам_відредагуй дозволи_
+## "Донести правду окупантам"
 
 - [VK Information Attack Manual](./vkinfomanual)
 
