@@ -30,5 +30,9 @@
     {
         "name": "gov-companies",
         "description": "Companies, that supply russia in war"
+    },
+    {
+        "name": "procurement",
+        "description": "Don’t stop on previous targets please! Add few more to your list. There are public procurement platforms that helps Russians to get around the sanctions."
     }
 ]
