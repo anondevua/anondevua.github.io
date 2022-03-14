@@ -6,7 +6,7 @@ const targetsURL = 'https://raw.githubusercontent.com/anondevua/anondevua.github
 const updateInterval = 500;
 const fetchTimeout = 1000;
 var CONCURRENCY_LIMIT = 1000;
-const RESULTS_NUM = 10
+const RESULTS_NUM = 20
 
 var statsEl = document.getElementById('stats');
 var descEl = document.getElementById('description');
