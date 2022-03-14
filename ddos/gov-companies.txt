@@ -1,5 +1,3 @@
-http://v1.rostec.ru
-http://v2.rostec.ru
 https://customs.gov.ru
 https://lk.rostec.ru/Account/LogIn
 https://lukoil.ru

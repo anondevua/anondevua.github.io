@@ -1,5 +1,8 @@
 # http not working, maybe because of https of gh pages
 
+http://v1.rostec.ru
+http://v2.rostec.ru
+
 http://en.kremlin.ru
 http://government.ru
 http://ias.rostec.ru
