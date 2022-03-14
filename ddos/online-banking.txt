@@ -12,3 +12,5 @@ https://www.vtb.ru
 https://www.gazprombank.ru
 https://sberbank.ru
 https://www.tinkoff.ru
+https://koronapay.com
+https://api.koronapay.com
