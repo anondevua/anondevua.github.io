@@ -34,5 +34,9 @@
     {
         "name": "procurement",
         "description": "Don’t stop on previous targets please! Add few more to your list. There are public procurement platforms that helps Russians to get around the sanctions."
+    },
+    {
+        "name": "apteka",
+        "description": "Для розминки розпочнемо з аптек. Як їх здолаємо, то відразу перейдемо до більш складних та цікавих цілей, яким потрібна допомога)"
     }
 ]
